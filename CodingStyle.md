@@ -1,7 +1,7 @@
 ---
 title: CodingStyle
 tags:
-  - <project>-top-level
+  - <project>-code
 ---
 
 # Coding Style

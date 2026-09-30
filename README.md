@@ -10,13 +10,15 @@ A project-agnostic development harness: documentation rules, coding conventions,
 
 ## Contents
 
-| Document                                                                       | Purpose                                                           |
-| ------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| [DocumentationStyle.md](DocumentationStyle.md)                                 | How documentation is organized, tagged, and written               |
-| [CodingStyle.md](CodingStyle.md)                                               | C# conventions for Rider or ReSharper, and testing rules          |
-| [ADR-0001](adr/ADR-0001-AI-Friendly-Development-and-Forgiving-Architecture.md) | Modular architecture and documentation; accepted                  |
-| [ADR-0002](adr/ADR-0002-Namespaces-and-Assemblies.md)                          | Assembly boundaries, test compilation, name collisions; accepted  |
-| [ADR-0003](adr/ADR-0003-Namespace-and-Test-Assembly-Layout.md)                 | Namespace and test assembly layout; proposed, with open questions |
+| File                                                                           | Purpose                                                                       |
+| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| [Conventions.md](Conventions.md)                                               | One-sentence digest of the rules every task needs; tag `top-level`            |
+| [DocumentationStyle.md](DocumentationStyle.md)                                 | How documentation is organized, tagged, and written; tag `documentation`      |
+| [CodingStyle.md](CodingStyle.md)                                               | C# conventions for Rider or ReSharper, and testing rules; tag `code`          |
+| [ADR-0001](adr/ADR-0001-AI-Friendly-Development-and-Forgiving-Architecture.md) | Modular architecture and documentation; accepted; tag `top-level`             |
+| [ADR-0002](adr/ADR-0002-Namespaces-and-Assemblies.md)                          | Assembly boundaries, test compilation, name collisions; accepted; tag `code`  |
+| [ADR-0003](adr/ADR-0003-Namespace-and-Test-Assembly-Layout.md)                 | Namespace and test assembly layout; proposed, with open questions; tag `code` |
+| [combine-context.sh](combine-context.sh)                                       | Assembles tagged documents into one context bundle                            |
 
 ## Placeholders
 
@@ -25,11 +27,12 @@ A project-agnostic development harness: documentation rules, coding conventions,
 
 ## Adopting in a Project
 
-1. Copy the documents into the project's `docs/` directory. This README is not copied.
+1. Copy the documents and `combine-context.sh` into the project's `docs/` directory. This README is not copied.
 2. Replace `<Project>` and `<project>` in every document.
-3. Resolve the open questions of every `Proposed` ADR, such as ADR-0003, and have a person accept it. Accepted shared ADRs are kept unchanged.
-4. Create the project documents listed below.
-5. Keep the IDE settings, such as the `.sln.DotSettings` file, consistent with `CodingStyle.md`.
+3. Create `.combine-context.conf` in the repository root with `docs/combine-context.sh --init`, and add the generated bundle to `.gitignore`.
+4. Resolve the open questions of every `Proposed` ADR, such as ADR-0003, and have a person accept it. Accepted shared ADRs are kept unchanged.
+5. Create the project documents listed below, and register the `code` and `documentation` tags in `Architecture.md` together with the module tags.
+6. Keep the IDE settings, such as the `.sln.DotSettings` file, consistent with `CodingStyle.md`.
 
 ADR numbers `0001` to `0099` are reserved for the ADRs of this repository. A project numbers its own ADRs from `0100`, so that new shared ADRs never collide with them.
 

@@ -102,7 +102,7 @@ Every document in `docs/` starts with front matter containing its `title` and `t
 
 ```markdown
 ---
-title: ADR-0007-Renderer-Frame-Graph
+title: ADR-0107-Renderer-Frame-Graph
 tags:
   - <project>-renderer
 ---
@@ -113,14 +113,18 @@ Tags identify the module or concern a document belongs to. Documents that every 
 The context for a task is assembled from tags:
 
 ```text
-<project>-top-level      project-wide principles and conventions
+<project>-top-level      project-wide principles and a digest of conventions
+        +
+<project>-<concern>      the kinds of work the task involves, such as code or documentation
         +
 <project>-<module>       the module being changed
         ↓
 context bundle
 ```
 
-The top-level documents and the documents of one module must be sufficient to work on that module.
+Top-level context is kept small, because it is paid for in every task. Detailed rules that only some tasks need are selected by concern tags, and the rules every task needs are restated in one sentence each in a top-level digest, `Conventions.md`.
+
+The top-level documents, the concern documents the task touches, and the documents of one module must be sufficient to work on that module.
 
 When they are not, the module boundary or its documentation is incomplete, and fixing it is part of the task.
 
@@ -178,6 +182,7 @@ Changes made with an assistant follow the same workflow as any other change: sma
 * Front matter and tags must be maintained. A missing or misspelled tag silently hides a document.
 * Self-contained documents require short restatements of constraints defined elsewhere.
 * Deciding what belongs in top-level context requires ongoing judgement.
+* The top-level digest restates rules defined elsewhere and must be updated together with them.
 * Human review limits how much change assistants can contribute.
 
 These trade-offs are acceptable because the cost of indirection is predictable, while the cost of an unrecoverable architectural mistake, or of an assistant working from the wrong context, is not.
@@ -221,6 +226,24 @@ A second set of documents duplicates the first and drifts from it. Assistants wo
 
 ---
 
+### Separate Top-Level Context for People and Assistants
+
+Rejected.
+
+Tags select documents for context bundles, and people do not read bundles: they browse documents and follow links. A tag for people would select nothing. A compressed top-level written only for assistants is separate documentation written for AI.
+
+What differs between tasks is the kind of work, not the reader. Concern tags select the detailed rules, and the top-level digest carries the rules every task needs.
+
+---
+
+### Every Convention in Top-Level Context
+
+Rejected.
+
+It guarantees that no rule is missing, but coding tasks then carry documentation templates, and documentation tasks carry formatting rules for code. The constraints that matter are diluted, as with loading all documentation.
+
+---
+
 ### Design the Architecture Correctly Up Front
 
 Rejected.
@@ -253,5 +276,6 @@ Interfaces everywhere make the code harder to read and navigate, for people and 
 * Code is divided into modules with explicit interfaces and one-directional dependencies.
 * Interfaces are placed where decisions are uncertain, so that mistakes stay local.
 * Documentation follows module boundaries and is selected by front matter tags.
-* Top-level context plus the documents of one module is enough to work on that module.
+* Top-level context, the concern documents a task touches, and the documents of one module are enough to work on that module.
+* Top-level context stays small: a digest restates the rules every task needs, and concern tags select the details.
 * People and assistants share one set of documents; people own the decisions.

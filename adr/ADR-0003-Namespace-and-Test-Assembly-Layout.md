@@ -1,7 +1,7 @@
 ---
 title: ADR-0003-Namespace-and-Test-Assembly-Layout
 tags:
-  - <project>-top-level
+  - <project>-code
 ---
 
 # ADR-0003 — Namespace and Test Assembly Layout
