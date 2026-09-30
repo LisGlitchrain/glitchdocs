@@ -1,7 +1,7 @@
 ---
 title: ADR-0002-Namespaces-and-Assemblies
 tags:
-  - <project>-top-level
+  - <project>-code
 ---
 
 # ADR-0002 — Namespaces and Assemblies

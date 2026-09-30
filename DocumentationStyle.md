@@ -1,7 +1,7 @@
 ---
 title: DocumentationStyle
 tags:
-  - <project>-top-level
+  - <project>-documentation
 ---
 
 # Documentation Style
@@ -42,6 +42,7 @@ docs/
 ├── combine-context.sh           Context assembly script, identical in every project
 ├── Architecture.md              Vision, modules, tags, high-level structure
 ├── CodingStyle.md               Source code conventions
+├── Conventions.md               One-sentence digest of the rules every task needs
 ├── DocumentationStyle.md        This document
 ├── Philosophy.md                Goals and guiding preferences
 ├── Roadmap.md                   Milestones and future work (optional)
@@ -175,12 +176,14 @@ Rules:
 
 ### Tag Vocabulary
 
-| Tag                   | Selects                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------- |
-| `<project>-top-level` | Context needed for any task: vision, philosophy, conventions, decisions that span all modules |
-| `<project>-<module>`  | Documents needed to work inside one module                                                    |
-| `<project>-<concern>` | A cross-cutting concern that spans modules, such as threading or documentation                |
-| `<project>-archive`   | Inactive decision records                                                                     |
+| Tag                       | Selects                                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------------------- |
+| `<project>-top-level`     | Context needed for any task: vision, philosophy, `Conventions.md`, decisions that span all modules |
+| `<project>-<module>`      | Documents needed to work inside one module                                                         |
+| `<project>-<concern>`     | A cross-cutting concern that spans modules, such as threading                                      |
+| `<project>-code`          | Rules for changing source code: coding style, code organization, tests                             |
+| `<project>-documentation` | Rules for creating and restructuring documents, including decision records                         |
+| `<project>-archive`       | Inactive decision records                                                                          |
 
 The list of module and concern tags is kept in `Architecture.md`, next to the module structure. A tag is added there before it is first used.
 
@@ -190,6 +193,8 @@ The list of module and concern tags is kept in `Architecture.md`, next to the mo
 * A document is tagged for the tasks that need it, not for every topic it mentions.
 * A document may carry several tags. A decision about the boundary between two modules carries both module tags.
 * `<project>-top-level` is kept small. It is included in every context bundle, so every document tagged with it costs context in every task.
+* Detailed rules that only some tasks need carry a concern tag, such as `<project>-code` or `<project>-documentation`. The rules every task needs are restated in one sentence each in `Conventions.md`, which is tagged `<project>-top-level`.
+* A rule restated in `Conventions.md` is updated there in the same change as its source.
 * When a decision record becomes `Rejected`, `Deprecated`, or `Superseded`, its tags are replaced with `<project>-archive`. Bundles then contain only current decisions, while the history remains selectable on purpose.
 
 ### Record Fields
@@ -270,7 +275,7 @@ docs/combine-context.sh --init
 A bundle for work on one module:
 
 ```bash
-docs/combine-context.sh --tag top-level --tag renderer
+docs/combine-context.sh --tag top-level --tag code --tag renderer
 ```
 
 A tag passed without the project prefix also matches its prefixed form, so `renderer` selects documents tagged `<project>-renderer`.
@@ -281,7 +286,7 @@ The generated bundle is a build artifact and is listed in `.gitignore`. The conf
 
 A document inside a bundle is read without the documents around it.
 
-* The top-level documents and the documents of one module are sufficient to work on that module. When they are not, the module boundary or its documentation is incomplete, and fixing it is part of the task.
+* The top-level documents, the concern documents the task touches, and the documents of one module are sufficient to work on that module. When they are not, the module boundary or its documentation is incomplete, and fixing it is part of the task.
 * Each document names the project and the module explicitly instead of writing "this module" or "the system above".
 * References use stable identifiers such as file names and ADR numbers, never "the previous ADR", "the new approach", or "recently".
 * When a document depends on a constraint defined elsewhere, it states the constraint in one sentence and links to the source for the reasoning. This is the only accepted repetition.
@@ -659,6 +664,7 @@ Before a documentation change is merged:
 
 * [ ] Front matter starts on line 1, `title` equals the file name, and every tag is registered in `Architecture.md`.
 * [ ] `<project>-top-level` is used only for documents every task needs.
+* [ ] Rules restated in `Conventions.md` match their source.
 * [ ] The file name matches the only H1.
 * [ ] The document opens with its framing section.
 * [ ] `##` sections are separated by `---`.
