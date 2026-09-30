@@ -84,6 +84,7 @@ Defined in [CodingStyle.md](CodingStyle.md), [ADR-0002](adr/ADR-0002-Namespaces-
 * Fields use `m_PascalCase`, parameters use `_PascalCase`, constants and enum members use `UPPER_SNAKE_CASE`, and local variables use `camelCase`.
 * `var` and target-typed `new()` are not used.
 * The default access modifiers `private` and `internal` are omitted.
+* Magic numbers are not used: a meaningful value is a named constant, and repeated values with the same meaning share one constant.
 * Namespaces use block-scoped bodies. Their root and their relation to folders are decided in ADR-0003.
 * Members are grouped into `#region` blocks in the fixed order defined in CodingStyle.md.
 * The body of `if`, `else`, `for`, `foreach`, and `while` never shares a line with its header.
