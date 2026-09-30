@@ -142,6 +142,43 @@ Non-default modifiers, such as `public`, `protected`, and `sealed`, are always w
 
 ---
 
+### Named Constants
+
+Magic numbers are not used. A value with a meaning is a named constant, and the name states the meaning.
+
+Values that are repeated and mean the same thing are one constant. Changing that value then changes every use at once, and no use can be forgotten.
+
+Bad:
+
+```csharp
+paddingLeft   = 8;
+paddingRight  = 8;
+paddingTop    = 8;
+paddingBottom = 8;
+```
+
+Good:
+
+```csharp
+const int PADDING = 8;
+
+paddingLeft   = PADDING;
+paddingRight  = PADDING;
+paddingTop    = PADDING;
+paddingBottom = PADDING;
+```
+
+Values that are equal by coincidence are separate constants, because they change for different reasons:
+
+```csharp
+const int PADDING     = 8;
+const int MAX_RETRIES = 8;
+```
+
+`0` and `1` used as a start index, an increment, or an identity value, such as `count + 1` or `sum = 0`, are not magic numbers.
+
+---
+
 ### Namespaces
 
 Namespaces use block-scoped bodies. File-scoped namespaces are reported as an error.
