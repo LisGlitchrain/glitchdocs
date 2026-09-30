@@ -1,7 +1,7 @@
 ---
 title: DocumentationStyle
 tags:
-  - <project>-documentation
+  - <project>-top-level
 ---
 
 # Documentation Style
@@ -9,8 +9,6 @@ tags:
 ## Purpose
 
 This document defines how documentation is organized, written, and maintained.
-
-It is project-agnostic. It can be copied into the `docs/` directory of any repository; `<Project>` stands for the project name and `<project>` for its lowercase kebab-case slug, such as `yana-engine`.
 
 The reasons behind this organization are recorded in [ADR-0001 — AI-Friendly Development and Forgiving Architecture](adr/ADR-0001-AI-Friendly-Development-and-Forgiving-Architecture.md).
 
@@ -46,7 +44,7 @@ docs/
 ├── CodingStyle.md               Source code conventions
 ├── DocumentationStyle.md        This document
 ├── Philosophy.md                Goals and guiding preferences
-├── Roadmap.md                   Milestones and future work
+├── Roadmap.md                   Milestones and future work (optional)
 ├── adr/
 │   ├── ArchitectureDecisionRecords.md
 │   └── ADR-NNNN-<Subject>.md    Architecture Decision Records
@@ -296,7 +294,9 @@ A document inside a bundle is read without the documents around it.
 
 ### Numbering and Titles
 
-* Numbers are sequential, start at `0001`, and are never reused, even for rejected records.
+* Numbers `0001` to `0099` are reserved for shared records: decisions common to several projects, kept identical in each of them.
+* Project records start at `0100`.
+* Within each range, numbers are sequential and are never reused, even for rejected records.
 * The title is `# ADR-NNNN — <Subject>`, with an em dash.
 * The subject names the problem area, not the outcome: `Build System`, not `Use CMake`.
 
@@ -313,6 +313,7 @@ Optional:
 
 * `## Rationale` — after Decision, when the reasons are not obvious. Subsections may be phrased as questions: `### Why not a global static Time class?`
 * Topic sections — after Decision, for major aspects of the decision: `## Live Editing and Reload`.
+* `## Open Questions` — after Decision, only in `Proposed` records: parts of the decision not yet made, each as a `### Question N — <Name>` subsection listing its options with advantages and disadvantages. The section is removed before the record is accepted: each chosen option moves to Decision, and the others move to Alternatives Considered.
 * `## Evolution Policy` — how and when the decision may be revisited.
 * `## Future Considerations` — after Consequences or Alternatives, for directions the decision leaves open.
 * `## Decision Summary` — at the end of long records: one sentence and a short recap list.
@@ -409,7 +410,7 @@ Rules are demonstrated with paired examples labelled `Bad:` and `Good:`, or `Pre
 
 ### README
 
-Kept short: a one-sentence description, goals, target platforms, requirements, build commands, and a link to `docs/`.
+Kept short: a one-sentence description of the project's purpose, goals, target platforms, requirements, how to use the project, build commands, and a link to `docs/`.
 
 Build commands are shown in a `bash` fence.
 
